@@ -1,7 +1,7 @@
 This is a forked version of: http://turingmachine.io
 
 # Problems
-The program syntax of the original version had two big problems:
+The program syntax of the original version had two problems:
 - At every step of the Turing Machine (TM) process, the head had to move (L or R).
 - Related to the provious one, the move command and next state command are entangled, so that we can only specify a next state if there is a move command.
 
