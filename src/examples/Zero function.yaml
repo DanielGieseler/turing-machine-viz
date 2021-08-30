@@ -1,0 +1,17 @@
+name: Zero function
+source code: |
+  input: 10110011
+  blank: 0
+  start state: q1
+  table:
+    q1:
+      1 : 0 q2
+      0 : R q3
+    q2:
+      0 : R q1
+    q3:
+      1 : 1 q1
+positions:
+  q1: {x: 398.87, y: 236.39}
+  q2: {x: 196.94, y: 233.71}
+  q3: {x: 588.32, y: 235.69}

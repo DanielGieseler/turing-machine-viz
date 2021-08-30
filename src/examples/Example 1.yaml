@@ -1,0 +1,32 @@
+name: Example 1
+source code: |
+  input: 
+  blank: 0
+  start state: q1
+
+  table:
+    q1:
+      1 : R q2
+      0 : 1 q1
+    q2:
+      1 : R q3
+      0 : 1 q2
+    q3:
+      1 : R q4
+      0 : 1 q3
+    q4:
+      0 : 1 q5
+    q5:
+      1 : L q5
+      0 : R q6
+    q6:
+
+
+      
+positions:
+  q1: {x: 117.23, y: 469.88}
+  q2: {x: 249.79, y: 467.86}
+  q3: {x: 378.67, y: 467.86}
+  q4: {x: 496.84, y: 467.86}
+  q5: {x: 608, y: 468.87}
+  q6: {x: 605.3, y: 323.95}

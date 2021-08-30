@@ -1,0 +1,31 @@
+name: Addition function
+source code: |-
+  input: 110111
+  blank: 0
+  start state: q1
+  table:
+    q1:
+      1 : R q1
+      0 : 1 q2
+    q2:
+      1 : L q2
+      0 : R q3
+    q3:
+      1 : 0 q3
+      0 : R q4
+    q4:
+      1 : 0 q4
+      0 : R q5
+    q5:
+      1 : 0 q5
+      0 : R q6
+    q6:
+    
+      
+positions:
+  q1: {x: 125.9, y: 92.85}
+  q2: {x: 295.22, y: 95.79}
+  q3: {x: 296.43, y: 245.79}
+  q4: {x: 442.85, y: 248.53}
+  q5: {x: 568.76, y: 250.64}
+  q6: {x: 682.03, y: 359.1}
