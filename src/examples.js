@@ -15,6 +15,11 @@ var examplePairs = [
 'Successor function',
 'Zero function',
 'Addition function',
+'Multiplication function (1)',
+'Multiplication function (2)',
+'Multiplication function (3)',
+'Multiplication function (4)',
+'Multiplication function (5)',
 'Multiplication function (6)'
 ].map(function (id) {
   // parse each string into a document
