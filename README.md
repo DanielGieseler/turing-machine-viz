@@ -7,7 +7,7 @@ The program syntax of the original version had two problems:
 
 # Changes
 - The program syntax is simplified to a quadruple format:
-  {current state, read symbol, operation (1 or 0 to write, L or R to move), next state}.
+  - {current state, read symbol, operation (1 or 0 to write, L or R to move), next state}.
 - The page instructions (in index.html) are also simplified in accordance to the previous change.
 - Cleaned the examples done in the old syntax, and substituted for others from the book ().
   
