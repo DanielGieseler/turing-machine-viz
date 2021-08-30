@@ -185,8 +185,7 @@ function checkTarget(table, instruct) {
 function parseInstruction(synonyms, table, val) {
   return checkTarget(table, function () {
     switch (typeof val) {
-      case 'string': return parseInstructionString(synonyms, val);
-      case 'object': return parseInstructionObject(val);
+      case 'string': return parseInstructionNew(val);
       default: throw new TMSpecError('Invalid instruction type',
         {problemValue: typeof val,
           info: 'An instruction can be a string (a direction <code>L</code>/<code>R</code> or a synonym)'
@@ -195,67 +194,36 @@ function parseInstruction(synonyms, table, val) {
   }());
 }
 
-var moveLeft = Object.freeze({move: TM.MoveHead.left});
-var moveRight = Object.freeze({move: TM.MoveHead.right});
 
-// case: direction or synonym
-function parseInstructionString(synonyms, val) {
-  if (val === 'L') {
-    return moveLeft;
-  } else if (val === 'R') {
-    return moveRight;
-  }
-  // note: this order prevents overriding L/R in synonyms, as that would
-  // allow inconsistent notation, e.g. 'R' and {R: ..} being different.
-  if (synonyms && synonyms[val]) { return synonyms[val]; }
-  throw new TMSpecError('Unrecognized string',
-    {problemValue: val,
-    info: 'An instruction can be a string if it\'s a synonym or a direction'});
+function parseInstructionNew(val) {
+	const commands = val.split(' ')
+	if (commands.length != 2){
+		throw new TMSpecError('Exactly two instructions are required');
+	}
+
+	var symbol, move, state;
+
+	// WRITE and MOVE
+	var c1 = commands[0];
+	if (c1.length != 1) {
+		throw new TMSpecError('Operation require a string of length 1');
+	}
+	if (c1 == 'L'){
+		move = TM.MoveHead.left;
+	} else if (c1 == 'R') {
+		move = TM.MoveHead.right;
+	} else {
+		symbol = c1;
+	}
+
+	// NEXT STATE
+	state = commands[1];
+
+	return makeInstruction(symbol, move, state);
 }
 
-// type ActionObj = {write?: any, L: ?string} | {write?: any, R: ?string}
-// case: ActionObj
-function parseInstructionObject(val) {
-  var symbol, move, state;
-  if (val == null) { throw new TMSpecError('Missing instruction'); }
-  // prevent typos: check for unrecognized keys
-  (function () {
-    var badKey;
-    if (!Object.keys(val).every(function (key) {
-      badKey = key;
-      return key === 'L' || key === 'R' || key === 'write';
-    })) {
-      throw new TMSpecError('Unrecognized key',
-      {problemValue: badKey,
-      info: 'An instruction always has a tape movement <code>L</code> or <code>R</code>, '
-        + 'and optionally can <code>write</code> a symbol'});
-    }
-  })();
-  // one L/R key is required, with optional state value
-  if ('L' in val && 'R' in val) {
-    throw new TMSpecError('Conflicting tape movements',
-    {info: 'Each instruction needs exactly one movement direction, but two were found'});
-  }
-  if ('L' in val) {
-    move = TM.MoveHead.left;
-    state = val.L;
-  } else if ('R' in val) {
-    move = TM.MoveHead.right;
-    state = val.R;
-  } else {
-    throw new TMSpecError('Missing movement direction');
-  }
-  // write key is optional, but must contain a char value if present
-  if ('write' in val) {
-    var writeStr = String(val.write);
-    if (writeStr.length === 1) {
-      symbol = writeStr;
-    } else {
-      throw new TMSpecError('Write requires a string of length 1');
-    }
-  }
-  return makeInstruction(symbol, move, state);
-}
+
+
 
 exports.TMSpecError = TMSpecError;
 exports.parseSpec = parseSpec;
