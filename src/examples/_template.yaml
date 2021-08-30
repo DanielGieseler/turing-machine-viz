@@ -1,6 +1,6 @@
-input: '${2}'
-blank: '${3: }'
-start state: ${4:start}
+input: 
+blank: 0
+start state: q1
+
 table:
-  ${4}:
-    ${5}
+  q1:

@@ -99,8 +99,13 @@ function normalize(state, symbol, instruction) {
 }
 
 function labelFor(symbols, action) {
-  var rightSide = ((action.symbol == null) ? '' : (visibleSpace(String(action.symbol)) + ','))
-    + String(action.move);
+	var rightSide;
+	if (action.symbol != null) {
+		rightSide = String(action.symbol);
+	} else {
+		rightSide = String(action.move);
+	}
+
   return symbols.map(visibleSpace).join(',') + '→' + rightSide;
 }
 
