@@ -13,8 +13,9 @@ The program syntax of the original version had two problems:
 - Cleaned the examples done in the old syntax, and substituted for others from the book (Computability: Computable Functions, Logic, and the Foundations of Mathematics - R. Epstein & W. Carnielli, chapter 9).
   
 # Setup
-- Clone the repository
-- Open a prompt command on the folder of the repository, and run:
+- Copy all files to a folder
+- Download and install node.js: https://nodejs.org/en/download/
+- Open a prompt command on that folder and run:
   - `npm install` to install the first time
   - `npm start` to start everytime afterwards
 - After started, the application should be running at: localhost:8080
